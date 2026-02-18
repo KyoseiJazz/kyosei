@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>be mindful of the mess! This is under construction</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Background styling */
+        body::before {
+            content: "";
+            position: fixed; 
+            top: -100%;
+            left: -100%;
+            width: 800%;
+            height: 800%;
+            background-image: url("images/pink band.jpg");
+            background-repeat: repeat;
+            background-position: 0 0;
+            background-size: 120px 120px;
+            transform: translateY(var(--bg-translate, 0px)) rotate(-160deg);
+            transform-origin: center;
+            z-index: -1;
+            pointer-events: none;
+        }
+                /* Add this CSS to your <style> section */
+        
+        .left-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200px; /* Adjust width as needed */
+            height: 100vh;
+            padding: 20px;
+            z-index: 5; /* Below header if needed */
+            overflow-y: auto; /* Allow scrolling if content overflows */
+        }
+        
+        .left-banner .lb-title {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .left-banner nav ul {
+            list-style: none;
+        }
+        
+        .left-banner nav ul li {
+            margin-bottom: 10px;
+        }
+        
+        .left-banner nav ul li a {
+            color: #0037ff;
+            text-decoration: none;
+        }
+        
+        .left-banner nav ul li a:hover {
+            color: #fff;
+        }
+        
+        .left-banner .lb-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+        
+        /* Right-side guestbook panel */
+        .right-banner {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100vh;
+            padding: 20px;
+            z-index: 5;
+            overflow-y: auto;
+        }
+        
+        .right-banner iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-left: 200px;
+            margin-right: 400px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #ccc;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-left: 200px;
+            margin-right: 400px;
+            padding: 40px 20px;
+            margin-top: 10px;
+        }
+
+        /* Photo grid */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        /* Individual photo items */
+        .photo-item {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Photo placeholder styling */
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #333, #555);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #ccc;
+            font-size: 14px;
+            border: 2px dashed #666;
+        }
+
+        /* Actual image styling (when you replace placeholders) */
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Photo overlay for titles/descriptions */
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-item:hover .photo-overlay {
+            transform: translateY(0);
+        }
+
+        .photo-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .photo-description {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        /* Contact section */
+        .contact-section {
+            text-align: center;
+            padding: 40px 20px;
+            background: #111;
+            margin-top: 40px;
+            border-radius: 10px;
+        }
+
+        .contact-section h2 {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            color: #ccc;
+        }
+
+        .contact-item strong {
+            color: #fff;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .photo-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .photo-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .container {
+                padding: 20px 10px;
+            }
+        }
+
+        /* Lightbox effect (optional enhancement) */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        /* Utility hidden */
+        .hidden{display:none}
+
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* TV/video player behind spongebob image */
+        .tv-wrap{position:relative;max-width:940px;margin:18px auto 28px;margin-left:200px;margin-right:400px}
+        .tv-frame{width:100%;height:0;padding-bottom:62%;position:relative}
+        /* penguin GIF centered behind the overlay area on the right half */
+        #tv-gif{position:absolute;z-index:1;left:75%;top:50%;transform:translate(-50%,-50%);width:365px;height:270px;object-fit:cover;display:block;pointer-events:none}
+        /* overlay moved to right side and sized to half the frame */
+        .tv-overlay{position:absolute;right:0;top:50%;transform:translateY(-50%);width:50%;height:auto;z-index:2;display:flex;justify-content:center;align-items:center;pointer-events:none}
+        .tv-overlay img{width:100%;height:auto;display:block}
+        .tv-error{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;background:rgba(0,0,0,0.65);z-index:4;padding:12px;text-align:center}
+        .tv-error a{color:#ffd;display:inline-block;margin-top:6px}
+
+                /* Add this to your <style> section in index.html */
+        
+        body {
+            cursor: url('images/anime-star.gif'), auto;
+        }
+
+        .photo-item,
+        .photo-item a,
+        button,
+        a {
+            cursor: url('Images/anime-star.gif'), auto;
+        }
+        
+        /* Fixed audio player widget */
+        .audio-player-widget {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .audio-player-widget audio {
+            height: 40px;
+            border-radius: 20px;
+        }
+        
+        .audio-player-widget .player-label {
+            color: #fff;
+            font-size: 14px;
+            white-space: nowrap;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Left-side menu banner -->
+    <aside class="left-banner" aria-label="Main navigation">
+        <h2 class="lb-title">MENU</h2>
+        <nav>
+            <ul>
+                <li><a href="gallery pages/gallery.html">Gallery</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="diary.html">Diary</a></li>
+            </ul>
+        </nav>
+        <div class="lb-footer">visitor<br>counter</div> <!--Placeholder for visitor counter-->
+    </aside>
+    
+    <!-- Right-side guestbook panel -->
+    <aside class="right-banner" aria-label="Guestbook">
+        <iframe src="https://kyosei.atabook.org/" title="Guestbook"></iframe>
+    </aside>
+    
+    <!-- Header Section -->
+    <header class="header">
+        <h1>SHUNYA CARROLL</h1>
+        <p>Professional Photography Portfolio | [Your Specialty/Location]</p>
+    </header>
+    
+    <!-- TV test: static animated GIF behind the spongebobTV.png image -->
+    <div class="tv-wrap" aria-hidden="false">
+        <div class="tv-frame">
+            <!-- Static GIF used as the 'penguin cam' -- replace the file in Images/ as desired -->
+            <img id="tv-gif" class="tv-iframe" src="Images/penguin-cam.gif" alt="Penguin cam" />
+            <!-- overlay image sits above the GIF -->
+            <div class="tv-overlay">
+                <img src="Images/spongebobTV.png" alt="TV overlay" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Fixed audio player widget -->
+    <div class="audio-player-widget">
+        <span class="player-label">🎵 Now Playing</span>
+        <audio id="audio-player" controls>
+            <source src="audio/01 andata (Oneohtrix Point Never Remix).mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+    
+    <script>
+        // Playlist functionality with cross-page playback
+        (function() {
+            const playlist = [
+                'audio/01 andata (Oneohtrix Point Never Remix).mp3',
+                'audio/04 Footprints.mp3',
+                'audio/08 Magic.mp3',
+                'audio/17 Can I Kick It_ (J. Cole Remix).mp3'
+            ];
+            const audio = document.getElementById('audio-player');
+            
+            if (audio) {
+                // Restore playback state from localStorage
+                const savedTrack = localStorage.getItem('audioTrack');
+                const savedTime = localStorage.getItem('audioTime');
+                const wasPlaying = localStorage.getItem('audioPlaying') === 'true';
+                
+                if (savedTrack !== null) {
+                    const trackIndex = parseInt(savedTrack);
+                    audio.src = playlist[trackIndex];
+                    if (savedTime) {
+                        audio.currentTime = parseFloat(savedTime);
+                    }
+                    if (wasPlaying) {
+                        audio.play().catch(e => console.log('Autoplay prevented'));
+                    }
+                }
+                
+                // Auto-advance to next track
+                audio.addEventListener('ended', function() {
+                    const currentTrack = parseInt(localStorage.getItem('audioTrack') || '0');
+                    const nextTrack = (currentTrack + 1) % playlist.length;
+                    localStorage.setItem('audioTrack', nextTrack);
+                    audio.src = playlist[nextTrack];
+                    audio.play();
+                });
+                
+                // Save state periodically and on page unload
+                setInterval(function() {
+                    if (!audio.paused) {
+                        const currentSrc = audio.src;
+                        const trackIndex = playlist.findIndex(p => currentSrc.includes(p));
+                        localStorage.setItem('audioTrack', trackIndex >= 0 ? trackIndex : 0);
+                        localStorage.setItem('audioTime', audio.currentTime);
+                        localStorage.setItem('audioPlaying', 'true');
+                    } else {
+                        localStorage.setItem('audioPlaying', 'false');
+                    }
+                }, 1000);
+                
+                window.addEventListener('beforeunload', function() {
+                    const currentSrc = audio.src;
+                    const trackIndex = playlist.findIndex(p => currentSrc.includes(p));
+                    localStorage.setItem('audioTrack', trackIndex >= 0 ? trackIndex : 0);
+                    localStorage.setItem('audioTime', audio.currentTime);
+                    localStorage.setItem('audioPlaying', !audio.paused);
+                });
+            }
+        })();
+    </script>
+
+    <!-- Simple JavaScript for background functionality -->
+    <script>
+        // Keep rotated background from creating scrollbars while appearing to scroll:
+        (function(){
+            function updateBg(){
+                document.body.style.setProperty('--bg-translate', `-${window.scrollY}px`);
+            }
+            window.addEventListener('scroll', updateBg, {passive:true});
+            window.addEventListener('resize', updateBg);
+            updateBg();
+        })();
+    </script>
+    <!-- static GIF used for the TV test; no runtime script required -->
+    
+</body>
+</html>
