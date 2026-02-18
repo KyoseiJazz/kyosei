@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Diary — Interactive Book</title>
+  <link rel="stylesheet" href="book.css">
+</head>
+<body class="diary-bg">
+  <!-- Left-side menu banner -->
+  ...existing code...
+
+  <!-- Left-side menu banner -->
+  <aside class="left-banner" aria-label="Main navigation">
+    <h2 class="lb-title">MENU</h2>
+    <nav>
+      <ul>
+        <li><a href="gallery pages/gallery.html">Gallery</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="diary.html">Diary</a></li>
+      </ul>
+    </nav>
+    <div class="lb-footer">visitor<br>counter</div> <!--Placeholder for visitor counter-->
+  </aside>
+  <main class="book-main">
+    <div class="book-bg">
+      <img src="design-elements/open-book.png" alt="Open book" class="book-img" />
+      <button class="book-nav-btn prev" id="prev" aria-label="Previous page">◀</button>
+      <button class="book-nav-btn next" id="next" aria-label="Next page">▶</button>
+      <div class="book-pages">
+        <!-- Each .book-page is a left or right page -->
+        <div class="book-page left current" id="page-1" data-page="1">
+          <div class="page-content">
+            <h2>Welcome to My Diary</h2>
+            <p>This digital diary is presented as a real book. Flip through the pages to read posts and stories.</p>
+          </div>
+        </div>
+        <div class="book-page right" id="page-2" data-page="2">
+          <div class="page-content">
+           <h2>Table of Contents</h2>
+            <ol>
+              <li><a href="#page-3">DoJ antitrust head fired before Livenation lawsuit</a> — p.5 — Feb. 16, 2026</li>
+              <li><a href="#page-7">Second Post</a> — p.7 — Feb 13, 2026</li>
+            </ol>
+          </div>
+        </div>
+        <div class="book-page left" id="page-3" data-page="3">
+          <div class="page-content">
+             <img src="Images/Stories/DoJ Live Nation/DOJ-thumbnail.JPG" alt="DOJ antitrust head fired before Livenation lawsuit">
+          </div>
+        </div>
+        <div class="book-page right" id="page-4" data-page="4">
+          <div class="page-content">
+            <h3 style="text-align:right">Feb. 16, 2026</h3>
+            <p>Live Nation’s antitrust lawsuit is getting even more shaky after the antitrust head, Gail Slayter,  was fired this week. Oh and the trial is in 3 weeks.<p>
+            <p>Live Nation has been sending lobbyist to DoJ officials like Slayter’s  boss Pam Bondi, remember her from the Epstein stuff? This strategy worked last year when HP wanted to merge with its competitor. They got Slayter’s assistants fired.<p> 
+            <p>The National Independent Venue association says <p>
+            <p>“The company must be split up. There is no settlement that will lead to justice for America’s independent venues, artists, and fans. There is no pathway to restore competition in ticketing and live performance across America without Live Nation’s breakup.” <p>
+            <p>Ticketmaster is alleged to manipulate the inventory, demand and price of tickets. Often leading to double the price that artists and venues set. <p>
+            </p>New laws in California and New York are even being proposed to put a Cap resale tickets. Austin, the live music capital of the world is even struggling and being held up by nonprofits and our tax dollars.<p>
+            <p>Live Nation/Ticketmaster has created an industry that requires our cities subsidize billionaire greed. Even if you don’t go to Live Nation shows, you’re still paying their costs. <p>
+            </div>
+        </div>
+        <div class="book-page left" id="page-5" data-page="5">
+          <div class="page-content">
+            <h2>First Post (cont.)</h2>
+            <p>Continue your story or add more content on the right page.</p>
+          </div>
+        </div>
+        <div class="book-page right" id="page-6" data-page="6">
+          <div class="page-content">
+            <h2>Second Post</h2>
+            <p>This is the second post. Add as many pages as you like!</p>
+          </div>
+        </div>
+        <div class="book-page left" id="page-7" data-page="7">
+          <div class="page-content">
+            <h2>Second Post (cont.)</h2>
+            <p>More content for your second post.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- Fixed audio player widget -->
+  <div class="audio-player-widget">
+    <span class="player-label">🎵 Now Playing</span>
+    <audio id="audio-player" controls>
+      <source src="audio/01 andata (Oneohtrix Point Never Remix).mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+  
+  <script>
+    // Playlist functionality with cross-page playback
+    (function() {
+      const playlist = [
+        'audio/01 andata (Oneohtrix Point Never Remix).mp3',
+        'audio/04 Footprints.mp3',
+        'audio/08 Magic.mp3',
+        'audio/17 Can I Kick It_ (J. Cole Remix).mp3'
+      ];
+      const audio = document.getElementById('audio-player');
+      
+      if (audio) {
+        // Restore playback state from localStorage
+        const savedTrack = localStorage.getItem('audioTrack');
+        const savedTime = localStorage.getItem('audioTime');
+        const wasPlaying = localStorage.getItem('audioPlaying') === 'true';
+        
+        if (savedTrack !== null) {
+          const trackIndex = parseInt(savedTrack);
+          audio.src = playlist[trackIndex];
+          if (savedTime) {
+            audio.currentTime = parseFloat(savedTime);
+          }
+          if (wasPlaying) {
+            audio.play().catch(e => console.log('Autoplay prevented'));
+          }
+        }
+        
+        // Auto-advance to next track
+        audio.addEventListener('ended', function() {
+          const currentTrack = parseInt(localStorage.getItem('audioTrack') || '0');
+          const nextTrack = (currentTrack + 1) % playlist.length;
+          localStorage.setItem('audioTrack', nextTrack);
+          audio.src = playlist[nextTrack];
+          audio.play();
+        });
+        
+        // Save state periodically and on page unload
+        setInterval(function() {
+          if (!audio.paused) {
+            const currentSrc = audio.src;
+            const trackIndex = playlist.findIndex(p => currentSrc.includes(p));
+            localStorage.setItem('audioTrack', trackIndex >= 0 ? trackIndex : 0);
+            localStorage.setItem('audioTime', audio.currentTime);
+            localStorage.setItem('audioPlaying', 'true');
+          } else {
+            localStorage.setItem('audioPlaying', 'false');
+          }
+        }, 1000);
+        
+        window.addEventListener('beforeunload', function() {
+          const currentSrc = audio.src;
+          const trackIndex = playlist.findIndex(p => currentSrc.includes(p));
+          localStorage.setItem('audioTrack', trackIndex >= 0 ? trackIndex : 0);
+          localStorage.setItem('audioTime', audio.currentTime);
+          localStorage.setItem('audioPlaying', !audio.paused);
+        });
+      }
+    })();
+  </script>
+  
+  <script src="scripts/book.js" defer></script>
+
+  <script src="scripts/book.js" defer></script>
+</body>
+</html>

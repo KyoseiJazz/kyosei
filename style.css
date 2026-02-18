@@ -1,0 +1,82 @@
+/* 2000s-inspired stylesheet for a simple photo portfolio */
+html,body{height:100%;margin:0;font-family:"Comic Sans MS", "Trebuchet MS", Arial, sans-serif;background:#d7f0ff}
+/* subtle tiled stripe reminiscent of early sites */
+/* Remove body background-image for diary page to avoid conflict */
+body.diary-bg{background-image: url("design-elements/book-cover copy.png"); background-repeat: repeat;}
+
+#page{max-width:980px;margin:24px auto;padding:18px;background:#fff;border:4px ridge #ffcc66}
+
+#masthead{background:linear-gradient(#ffecd2,#ffd9b3);padding:12px 18px;border-bottom:2px solid #e0a84a}
+#masthead h1{margin:0;font-size:34px;color:#4a2f00;letter-spacing:1px}
+.tagline{margin:4px 0 0;color:#6b4b2b;font-style:italic}
+
+#nav{padding:10px 0;color:#333}
+#nav a{color:#00509e;text-decoration:none;font-weight:bold}
+
+main{padding:12px}
+
+#gallery h2,#about h2,#contact h2{font-size:20px;color:#4a2f00;margin:6px 0}
+.thumbs{display:flex;flex-wrap:wrap;gap:12px}
+.thumbs a{display:block;width:150px;text-align:center}
+.thumbs .thumb{display:block;width:150px;text-align:center}
+.thumbs img{width:150px;height:110px;object-fit:cover;border:4px ridge #ccc;box-shadow:2px 2px 0 rgba(0,0,0,0.08)}
+.thumb-title{margin-top:6px;font-size:14px;color:#4a2f00}
+
+/* Gallery header with action (random button) */
+.gallery-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.gallery-header-info{max-width:calc(100% - 140px)}
+.gallery-header-action{min-width:120px;display:flex;align-items:center;justify-content:center}
+
+/* Icon button */
+.icon-btn{background:transparent;border:none;padding:4px;cursor:pointer;display:flex;align-items:center;gap:8px;flex-direction:column}
+.icon-btn img{width:48px;height:48px;display:block}
+.icon-btn:focus{outline:2px solid #ffcc66}
+
+/* XP-style label/button under the icon */
+.btn-label{font-size:13px;color:#111;font-weight:700;padding:6px 10px;border:2px solid #d4d0c8;background:linear-gradient(#ffffff,#d9d9d9);box-shadow:inset 1px 1px 0 rgba(255,255,255,0.9), 2px 2px 0 rgba(0,0,0,0.12);border-radius:3px;margin-top:6px}
+.icon-btn:active .btn-label{box-shadow:inset 2px 2px 0 rgba(0,0,0,0.25);transform:translateY(1px)}
+
+section p{color:#222;line-height:1.4}
+
+footer{margin-top:14px;padding-top:8px;border-top:1px dashed #ddd;color:#333;text-align:center}
+
+/* Left-side menu banner (copied from index.html) */
+.left-banner{position:fixed;top:0;left:0;width:200px;height:100vh;padding:20px;z-index:50;overflow-y:auto}
+.left-banner .lb-title{margin-bottom:20px;font-size:1.2rem;color:#4a2f00}
+.left-banner nav ul{list-style:none;padding:0}
+.left-banner nav ul li{margin-bottom:10px}
+.left-banner nav ul li a{color:#0037ff;text-decoration:none}
+.left-banner nav ul li a:hover{color:#fff}
+.left-banner .lb-footer{position:absolute;bottom:20px;left:20px;font-size:0.8rem;color:#666}
+
+/* Fixed audio player widget */
+.audio-player-widget{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);padding:12px 20px;border-radius:30px;box-shadow:0 4px 20px rgba(0,0,0,0.5);z-index:1000;display:flex;align-items:center;gap:10px}
+.audio-player-widget audio{height:40px;border-radius:20px}
+.audio-player-widget .player-label{color:#fff;font-size:14px;white-space:nowrap;margin-right:8px}
+
+/* When left banner is present, shift the main page content to the right */
+body.has-left-banner #page{margin-left:240px}
+body.has-left-banner header#masthead{margin-left:0}
+
+/* Lightbox */
+#lightbox{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.75);z-index:999;padding:20px}
+#lightbox.hidden{display:none}
+#lightbox img{max-width:90%;max-height:80%;box-shadow:0 8px 24px rgba(0,0,0,0.6);border:6px solid #fff}
+#lb-caption{color:#fff;margin-top:8px;text-align:center}
+#lb-close{position:absolute;right:18px;top:18px;background:#fff;border:2px solid #ccc;border-radius:6px;padding:6px 10px;font-size:20px;cursor:pointer}
+#lb-prev{position:absolute;left:18px;top:50%;transform:translateY(-50%);background:#fff;border:2px solid #ccc;border-radius:6px;padding:6px 10px;font-size:20px;cursor:pointer}
+#lb-next{position:absolute;right:18px;top:50%;transform:translateY(-50%);background:#fff;border:2px solid #ccc;border-radius:6px;padding:6px 10px;font-size:20px;cursor:pointer}
+
+/* Random viewer lightbox */
+#rand-lightbox{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.75);z-index:995;padding:20px}
+#rand-lightbox.hidden{display:none}
+#rand-lightbox img{max-width:90%;max-height:80%;box-shadow:0 8px 24px rgba(0,0,0,0.6);border:6px solid #fff}
+#rand-lb-close,#rand-lb-prev,#rand-lb-next{background:#fff;border:2px solid #ccc;border-radius:6px;padding:6px 10px;font-size:20px;cursor:pointer}
+#rand-lb-close{position:absolute;right:18px;top:18px}
+#rand-lb-prev{position:absolute;left:18px;top:50%;transform:translateY(-50%)}
+#rand-lb-next{position:absolute;right:18px;top:50%;transform:translateY(-50%)}
+
+.btn{background:#ffcc66;border:2px solid #e0a84a;padding:8px 12px;border-radius:6px;cursor:pointer}
+.btn:hover{background:#ffd98f}
+
+@media(max-width:520px){#page{margin:8px;padding:12px} .thumbs a{width:45%} .thumbs img{height:90px}}

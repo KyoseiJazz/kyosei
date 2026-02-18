@@ -1,0 +1,205 @@
+
+body.diary-bg{
+  background-image: url("design-elements/book-cover copy.png") !important;
+  background-repeat: repeat !important;
+}
+
+:root {
+  --left-banner-width: 200px;
+}
+
+.left-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--left-banner-width);
+  height: 100vh;
+  padding: 20px;
+  z-index: 50;
+  overflow-y: auto;
+}
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  color: #1a1a1a;
+  margin: 0;
+}
+.book-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin-left: var(--left-banner-width);
+  width: calc(100vw - var(--left-banner-width));
+  background-image: url("Images/textures/Artbooks_AustinCentralLibrary00010.jpeg");
+  background-size: cover;
+  background-position: center; 
+}
+.book-bg {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100vh;
+  aspect-ratio: 2/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.book-img {
+  width: 100%;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100vh;
+  object-fit: contain;
+  display: block;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.book-pages {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%; height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+.book-page {
+  position: absolute;
+  top: 5%;
+  bottom: 5%;
+  width: 38%;
+  background: transparent;
+  color: #2a1a0a;
+  box-shadow: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.book-page {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.page-content {
+  margin: 0;
+  padding-top: 1rem;
+}
+.book-page::after {
+  content: attr(data-page);
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  color: #2a1a0a;
+  opacity: 0.8;
+  pointer-events: none;
+}
+.book-page.left {
+  left: 10%;
+  text-align: left;
+}
+.book-page.right {
+  right: 9%;
+  text-align: right;
+}
+.book-page.current {
+  opacity: 1;
+  pointer-events: auto;
+  background: rgba(255, 0, 0, 0.3);
+}
+.page-content {
+  width: 78%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0.5em 0 0.5em 0;
+  font-size: 0.9em;
+  text-align: left;
+  background: none;
+  word-break: break-word;
+  box-sizing: border-box;
+}
+.page-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+.book-nav-btn {
+  position: absolute;
+  bottom: 3%;
+  transform: translateY(-45%);
+  z-index: 10;
+  background: #fffbe8cc;
+  border: 2px solid #bba;
+  border-radius: 50%;
+  width: 48px; height: 48px;
+  font-size: 2rem;
+  color: #7a5c2b;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #0002;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.book-nav-btn.prev { left: 2%; }
+.book-nav-btn.next { right: 2%; }
+.book-nav-btn:active { background: #f5e6c6; }
+
+@media (max-width: 900px), (max-height: 700px) {
+  :root {
+    --left-banner-width: 0px;
+  }
+  .left-banner {
+    position: static;
+    width: auto;
+    height: auto;
+  }
+  .book-bg {
+    width: 100%;
+    height: 100vh;
+    min-width: 0;
+    min-height: 0;
+  }
+  .book-img {
+    width: 100%;
+    height: 100vh;
+    max-width: 100%;
+    max-height: 100vh;
+  }
+  .book-page { font-size: 0.95em; }
+  .page-content { padding: 1.2em 0.7em; }
+}
+
+/* Fixed audio player widget */
+.audio-player-widget {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 12px 20px;
+  border-radius: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.audio-player-widget audio {
+  height: 40px;
+  border-radius: 20px;
+}
+
+.audio-player-widget .player-label {
+  color: #fff;
+  font-size: 14px;
+  white-space: nowrap;
+  margin-right: 8px;
+}
