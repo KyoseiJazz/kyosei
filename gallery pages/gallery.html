@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shunya Carroll - Image Gallery</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body class="has-left-banner" data-bg="random">
+    <aside class="left-banner" aria-label="Main navigation">
+        <h2 class="lb-title">MENU</h2>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../diary.html">Diary</a></li>
+            </ul>
+        </nav>
+        <div class="lb-footer">visitor<br>counter</div>
+    </aside>
+    <div id="page">
+        <header id="masthead">
+            <h1>Shunya Carroll Photography</h1>
+            <p class="tagline">Capturing Moments in Time</p>
+        </header>
+        
+        <main>
+            <section id="gallery">
+                <div class="gallery-header">
+                    <div class="gallery-header-info">
+                        <h2>Galleries</h2>
+                        <p><strong>Date:</strong> <span id="gallery-date"></span></p>
+                        <p>Click on a gallery thumbnail below to view the full set of images.</p>
+                    </div>
+                    <div class="gallery-header-action">
+                        <button id="rand-btn" class="icon-btn" aria-label="See a random photo">
+                            <img src="../Images/songcat2.gif" alt="">
+                            <span class="btn-label">See a random photo</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="thumbs">
+                    <div class="thumb">
+                        <a href="gallery-Austin City Limits '25.html">
+                            <img src="../Images/galleries/Austin City Limits '25/20251003_ACL-Friday_05.jpg" alt="Austin City Limits '25">
+                        </a>
+                        <div class="thumb-title">Austin City Limits '25</div>
+                    </div>
+                    <div class="thumb">
+                        <a href="gallery-BTS Black Divas Rehearsal.html">
+                            <img src="../Images/galleries/BTS Black Divas Rehearsal/20251201_BlackDivas_008.jpg" alt="Bts Black Divas Rehearsal">
+                        </a>
+                        <div class="thumb-title">BTS Black Divas Rehearsal</div>
+                    </div>
+                    <div class="thumb">
+                        <a href="gallery-Banquet ATX Dinner.html">
+                            <img src="../Images/galleries/Banquet ATX Dinner/Jan 23 2026_Banquet_Lichas_1.jpg" alt="Banquet Atx Dinner">
+                        </a>
+                        <div class="thumb-title">Banquet ATX Dinner</div>
+                    </div>
+                    <div class="thumb">
+                        <a href="gallery-City Hall Bathroom Bill.html">
+                            <img src="../Images/galleries/City Hall Bathroom Bill/20251211_CityHallBathroom_293 1.jpg" alt="City Hall Bathroom Bill">
+                        </a>
+                        <div class="thumb-title">City Hall Bathroom Bill</div>
+                    </div>
+                    <div class="thumb">
+                        <a href="gallery-Creative Alliance Acting Class.html">
+                            <img src="../Images/galleries/Creative Alliance Acting Class/20251105_AustinCreativeAlliance_015.jpg" alt="Creative Alliance Acting Class">
+                        </a>
+                        <div class="thumb-title">Creative Alliance Acting Class</div>
+                    </div>
+                    <div class="thumb">
+                        <a href="gallery-Fun Portraits :).html">
+                            <img src="../Images/galleries/Fun Portraits :)/Jan 15 2026_Portraits_10.jpg" alt="Fun Portraits :)">
+                        </a>
+                        <div class="thumb-title">Fun Portraits :)</div>
+                    </div>
+                    <div class="thumb">
+                        <a href="gallery-Mystery Film Scans.html">
+                            <img src="../Images/galleries/Mystery Film Scans/03-12-25_Film_ShunyaCarroll_2379.jpg" alt="Mystery Film Scans">
+                        </a>
+                        <div class="thumb-title">Mystery Film Scans</div>
+                    </div>
+                    <div class="thumb">
+                        <a href="gallery-Pride Vandalized.html">
+                            <img src="../Images/galleries/Pride Vandalized/20251013_Pride-Crosswalk-Photowalk_01.jpg" alt="Pride Vandalized">
+                        </a>
+                        <div class="thumb-title">Pride Vandalized</div>
+                    </div>
+                    <div class="thumb">
+                        <a href="gallery-Trail of lights.html">
+                            <img src="../Images/galleries/Trail of lights/20251205_TrailofLights_03.jpg" alt="Trail Of Lights">
+                        </a>
+                        <div class="thumb-title">Trail Of Lights</div>
+                    </div>
+                    <div class="thumb">
+                        <a href="gallery-concert grab bag.html">
+                            <img src="../Images/galleries/concert grab bag/03-17_SurferGirl_Shunya_3.jpg" alt="Concert Grab Bag">
+                        </a>
+                        <div class="thumb-title">Concert Grab Bag</div>
+                    </div>
+                    <div class="thumb">
+                        <a href="gallery-example.html">
+                            <img src="../Images/galleries/example/01-01-00_Okinawa_ShunyaCarroll_62.jpg" alt="Example">
+                        </a>
+                        <div class="thumb-title">Example</div>
+                    </div>
+                    <div class="thumb">
+                        <a href="gallery-pride-photowalk.html">
+                            <img src="../Images/galleries/pride-photowalk/20251013_Pride-Crosswalk-Photowalk_01.jpg" alt="Pride Photowalk">
+                        </a>
+                        <div class="thumb-title">Pride Photowalk</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2026 Shunya Carroll Photography</p>
+        </footer>
+    </div>
+    <!-- Random viewer lightbox -->
+    <div id="rand-lightbox" class="hidden">
+        <img id="rand-lb-image" src="" alt="">
+        <button id="rand-lb-prev">&lt;</button>
+        <button id="rand-lb-next">&gt;</button>
+        <button id="rand-lb-close">×</button>
+    </div>
+    <script>
+        // Auto-fill the gallery date with today's date
+        document.addEventListener('DOMContentLoaded', function () {
+            const el = document.getElementById('gallery-date');
+            if (!el) return;
+            const d = new Date();
+            el.textContent = d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+        });
+    </script>
+    <script src="../scripts/bg-list.js"></script>
+    <script src="../scripts/bg.js"></script>
+    <script src="../scripts/all-images.js"></script>
+    <script src="../scripts/random-viewer.js"></script>
+  <!-- Fixed audio player widget -->
+  <div class="audio-player-widget">
+    <span class="player-label">🎵 Now Playing</span>
+    <audio id="audio-player" controls>
+      <source src="../audio/01 andata (Oneohtrix Point Never Remix).mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+  
+  <script>
+    // Playlist functionality with cross-page playback
+    (function() {
+      const playlist = [
+        '../audio/01 andata (Oneohtrix Point Never Remix).mp3',
+        '../audio/04 Footprints.mp3',
+        '../audio/08 Magic.mp3',
+        '../audio/17 Can I Kick It_ (J. Cole Remix).mp3'
+      ];
+      const audio = document.getElementById('audio-player');
+      
+      if (audio) {
+        // Restore playback state from localStorage
+        const savedTrack = localStorage.getItem('audioTrack');
+        const savedTime = localStorage.getItem('audioTime');
+        const wasPlaying = localStorage.getItem('audioPlaying') === 'true';
+        
+        if (savedTrack !== null) {
+          const trackIndex = parseInt(savedTrack);
+          audio.src = playlist[trackIndex];
+          if (savedTime) {
+            audio.currentTime = parseFloat(savedTime);
+          }
+          if (wasPlaying) {
+            audio.play().catch(e => console.log('Autoplay prevented'));
+          }
+        }
+        
+        // Auto-advance to next track
+        audio.addEventListener('ended', function() {
+          const currentTrack = parseInt(localStorage.getItem('audioTrack') || '0');
+          const nextTrack = (currentTrack + 1) % playlist.length;
+          localStorage.setItem('audioTrack', nextTrack);
+          audio.src = playlist[nextTrack];
+          audio.play();
+        });
+        
+        // Save state periodically and on page unload
+        setInterval(function() {
+          if (!audio.paused) {
+            const currentSrc = audio.src;
+            const trackIndex = playlist.findIndex(p => currentSrc.includes(p));
+            localStorage.setItem('audioTrack', trackIndex >= 0 ? trackIndex : 0);
+            localStorage.setItem('audioTime', audio.currentTime);
+            localStorage.setItem('audioPlaying', 'true');
+          } else {
+            localStorage.setItem('audioPlaying', 'false');
+          }
+        }, 1000);
+        
+        window.addEventListener('beforeunload', function() {
+          const currentSrc = audio.src;
+          const trackIndex = playlist.findIndex(p => currentSrc.includes(p));
+          localStorage.setItem('audioTrack', trackIndex >= 0 ? trackIndex : 0);
+          localStorage.setItem('audioTime', audio.currentTime);
+          localStorage.setItem('audioPlaying', !audio.paused);
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>
